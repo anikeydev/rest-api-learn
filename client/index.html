@@ -36,15 +36,24 @@
             id="value"
             v-model="form.value" />
         </div>
-        <button class="btn btn-primary" type="submit">Создать</button>
+        <button class="btn btn-primary" type="submit" :disabled="!canCreate">
+          Создать
+        </button>
       </form>
 
       <div v-if="contacts.length">
         <div class="card mb-3" v-for="contact in contacts">
           <div class="card-body">
-            <h5 class="card-title">{{contact.name}}</h5>
+            <h5
+              class="card-title"
+              :style="{color: contact.marked ? 'red' : 'black'}">
+              {{contact.name}}
+            </h5>
             <p class="card-text">{{contact.value}}</p>
-            <button class="btn btn-primary" @click="markContact(contact.id)">
+            <button
+              class="btn btn-primary"
+              @click="markContact(contact.id)"
+              :disabled="contact.marked">
               Отметить
             </button>
             <button class="btn btn-danger" @click="removeContact(contact.id)">
